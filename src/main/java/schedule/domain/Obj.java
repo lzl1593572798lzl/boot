@@ -1,12 +1,12 @@
 package schedule.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
+ * @JsonIgnore 忽略属性的格式化
+ * 序列化时转换成对应的key  age->new_age
+ * @JsonProperty(value = "new_age")
  * create by lzl ON 2018/08/01
  */
 public class Obj {
@@ -24,13 +24,11 @@ public class Obj {
     /**
      * 忽略time属性的序列化和反序列化
      */
-    @JsonIgnore
     private LocalDateTime time;
 
     /**
-     * 序列化时转换成对应的key  age->new_age
+     *
      */
-    @JsonProperty(value = "new_age")
     private Integer age;
 
     /**
@@ -47,6 +45,8 @@ public class Obj {
      *
      */
     private Date date;
+
+    private String myAddress;
 
     public Obj() {
     }
@@ -105,5 +105,18 @@ public class Obj {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getMyAddress() {
+        return myAddress;
+    }
+
+    public void setMyAddress(String myAddress) {
+        this.myAddress = myAddress;
+    }
+
+    @Override
+    public String toString() {
+        return this.name+" : "+this.age+" : "+this.date+" : "+this.flag+" : "+this.salary+" : "+this.score+" : "+this.time;
     }
 }
