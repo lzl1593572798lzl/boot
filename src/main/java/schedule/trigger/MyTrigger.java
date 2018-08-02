@@ -6,6 +6,7 @@ import java.util.TimeZone;
 
 /**
  * create by lzl ON 2018/07/31
+ * @author lzl
  */
 public class MyTrigger extends CronTrigger {
 

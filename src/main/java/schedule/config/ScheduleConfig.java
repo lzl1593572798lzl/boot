@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * create by lzl ON 2018/07/31
+ * @author lzl
  */
 @Component
 public class ScheduleConfig implements SchedulingConfigurer {

@@ -51,6 +51,13 @@ public class Obj {
     public Obj() {
     }
 
+    public Obj(Boolean flag, Integer age, Date date, String myAddress) {
+        this.flag = flag;
+        this.age = age;
+        this.date = date;
+        this.myAddress = myAddress;
+    }
+
     public Boolean getFlag() {
         return flag;
     }

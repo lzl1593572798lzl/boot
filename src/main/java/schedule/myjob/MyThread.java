@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * create by lzl ON 2018/07/31
+ * @author lzl
  */
 public class MyThread implements Runnable {
 
