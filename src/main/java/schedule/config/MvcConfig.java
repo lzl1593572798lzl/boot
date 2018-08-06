@@ -2,6 +2,7 @@ package schedule.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -14,6 +15,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import schedule.config.filter.DemoFilter;
 import schedule.config.intercepter.DemoInterceptor;
 import schedule.util.JsonUtil;
 
@@ -45,6 +47,17 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 //        对 以/json开头的请求进行拦截
         registry.addInterceptor(demoInterceptor()).addPathPatterns("/json/**");
+    }
+
+    /**
+     * 注册filter
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean(){
+        FilterRegistrationBean<DemoFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
+        filterFilterRegistrationBean.setFilter(new DemoFilter());
+        return filterFilterRegistrationBean;
     }
 
     @Override
