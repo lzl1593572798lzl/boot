@@ -48,8 +48,15 @@ public class JsonUtil {
      * @return
      * @throws JsonProcessingException
      */
-    public static String writeAsString(@NotNull Object object) throws JsonProcessingException{
-        return OBJECT_MAPPER.writeValueAsString(object);
+    public static String writeAsString(@NotNull Object object){
+        String value = "";
+        try {
+            value =  OBJECT_MAPPER.writeValueAsString(object);
+        }catch (Exception e){
+            value = e.getMessage();
+        }finally {
+            return value;
+        }
     }
 
     /**
@@ -60,8 +67,14 @@ public class JsonUtil {
      * @return
      * @throws IOException
      */
-    public static <T> T getObjByJsonString(String json,Class<T> type) throws IOException{
-        return OBJECT_MAPPER.readValue(json,type);
+    public static <T> T getObjByJsonString(String json,Class<T> type){
+        T t = null;
+        try {
+            t  = OBJECT_MAPPER.readValue(json,type);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return t;
     }
 
 }

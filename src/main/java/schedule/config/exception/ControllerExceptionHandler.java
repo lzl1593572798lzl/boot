@@ -2,6 +2,7 @@ package schedule.config.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import schedule.util.JsonUtil;
 
 /**
  * 全局异常的捕获类
@@ -13,8 +14,8 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public String exception(Exception e){
-        System.out.println("................................................................");
-        return e.toString();
+        System.out.println(ControllerExceptionHandler.class+"............................."+JsonUtil.writeAsString(e));
+        return JsonUtil.writeAsString(e);
     }
 
 }

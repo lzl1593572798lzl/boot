@@ -20,11 +20,13 @@ public class DemoInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         LOGGER.info("request.getServletPath():{}",request.getServletPath());
+        System.out.println(DemoInterceptor.class+request.getServletPath()+" ...........................");
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+        System.out.println(DemoInterceptor.class+request.getServletPath()+" ...........................");
         LOGGER.info("request.getServletPath():{}",request.getServletPath());
     }
 

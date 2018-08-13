@@ -1,5 +1,6 @@
 package schedule.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -9,7 +10,9 @@ import java.util.Date;
  * @JsonProperty(value = "new_age")
  * create by lzl ON 2018/08/01
  */
-public class Obj {
+public class Obj implements Serializable{
+
+    private Long id;
 
     /**
      *
@@ -120,6 +123,14 @@ public class Obj {
 
     public void setMyAddress(String myAddress) {
         this.myAddress = myAddress;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
