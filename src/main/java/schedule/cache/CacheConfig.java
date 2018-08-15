@@ -25,16 +25,13 @@ public class CacheConfig  extends CachingConfigurerSupport{
     public RedisTemplate<Object,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
         Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
         serializer.setObjectMapper(JsonUtil.getObjectMapper());
-
         RedisTemplate<Object,Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-
-        redisTemplate.setKeySerializer(serializer);
-        redisTemplate.setValueSerializer(serializer);
-        redisTemplate.setHashKeySerializer(serializer);
-        redisTemplate.setHashValueSerializer(serializer);
-
+//        启用默认的序列化设置  这样key、value Hash 对应的序列化 使用的都是同一个序列化类
+        redisTemplate.setEnableDefaultSerializer(true);
         redisTemplate.setDefaultSerializer(serializer);
+//        显示调用方法 使用上面的设置生效
+        redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
 

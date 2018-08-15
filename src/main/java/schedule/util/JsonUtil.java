@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.PropertyAccessor.ALL;
+
 /**
  * 专门处理 json对象的工具类
  * create by lzl ON 2018/07/31
@@ -28,6 +31,7 @@ public class JsonUtil {
 //       属性命名策略 中间以下划线隔开 首字母小写
         OBJECT_MAPPER.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+
 //      Date对象会自动序列化成时间戳
 //      LocalDateTime 不会转换成时间戳
         SimpleModule simpleModule = new SimpleModule();

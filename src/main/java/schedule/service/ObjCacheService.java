@@ -11,7 +11,7 @@ public interface ObjCacheService {
 
     List<Obj> getById(Long id);
 
-    Obj setObj(Obj obj);
+    Obj getObjById(Obj obj);
 
     void removeById(Long id);
 

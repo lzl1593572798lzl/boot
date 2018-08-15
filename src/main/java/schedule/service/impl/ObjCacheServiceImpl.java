@@ -2,10 +2,13 @@ package schedule.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import schedule.domain.Obj;
 import schedule.service.ObjCacheService;
+import schedule.util.JsonUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ import java.util.List;
  */
 @Service
 public class ObjCacheServiceImpl implements ObjCacheService {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjCacheServiceImpl.class);
 
@@ -37,7 +44,7 @@ public class ObjCacheServiceImpl implements ObjCacheService {
 
     @Cacheable(value = "obj",key = "#obj.id")
     @Override
-    public Obj setObj(Obj obj) {
+    public Obj getObjById(Obj obj) {
         return obj;
     }
 

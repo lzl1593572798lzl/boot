@@ -9,6 +9,7 @@ import schedule.service.ObjCacheService;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * create by lzl ON 2018/08/12
@@ -28,13 +29,14 @@ public class RedisCacheController extends BaseController {
         obj.setTime(LocalDateTime.now());
         obj.setDate(new Date());
         obj.setFlag(true);
-        objCacheService.setObj(obj);
-        return renderOk(obj);
+        Obj objNew =  objCacheService.getObjById(obj);
+        return renderOk(objNew);
     }
 
     @GetMapping("/get")
     public ResponseEntity<ResponseData> getObj (@RequestParam("id")Long id) throws Exception{
-        return renderOk(objCacheService.getById(id));
+        List<Obj> str =  objCacheService.getById(id);
+        return renderOk(str);
     }
 
     @GetMapping("/get_str")
