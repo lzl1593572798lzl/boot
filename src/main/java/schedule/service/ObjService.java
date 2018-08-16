@@ -2,16 +2,12 @@ package schedule.service;
 
 import schedule.domain.Obj;
 
-import java.util.List;
-
 /**
  * create by lzl ON 2018/08/12
  */
-public interface ObjCacheService {
+public interface ObjService {
 
-    List<Obj> getById(Long id);
-
-    Obj getObjById(Obj obj);
+    Obj getById(Long id);
 
     void removeById(Long id);
 
