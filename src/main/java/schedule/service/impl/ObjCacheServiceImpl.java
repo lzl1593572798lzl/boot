@@ -3,17 +3,16 @@ package schedule.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import schedule.domain.Obj;
 import schedule.service.ObjCacheService;
-import schedule.util.JsonUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * create by lzl ON 2018/08/12
@@ -24,25 +23,27 @@ public class ObjCacheServiceImpl implements ObjCacheService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjCacheServiceImpl.class);
 
-    @Cacheable(value = "id",key = "#id")
     @Override
     public List<Obj> getById(Long id) {
-        List<Obj> list = new ArrayList<>();
-        Obj obj = new Obj();
-        obj.setId(id);
-        obj.setName("lzl");
-        obj.setFlag(true);
-        obj.setMyAddress("hz");
-        obj.setDate(new Date());
-        obj.setTime(LocalDateTime.now());
-        list.add(obj);
-        return list;
+        if(redisTemplate.hasKey(id)){
+           List<Obj> list = (List<Obj>) redisTemplate.opsForValue().get(id);
+            System.out.println("从缓存取数据");
+           return list;
+        }else {
+            List<Obj> list = new ArrayList<>();
+            Obj obj = new Obj();
+            obj.setId(id);
+            obj.setDate(new Date());
+            obj.setTime(LocalDateTime.now());
+            list.add(obj);
+            redisTemplate.opsForValue().set(id,list,10, TimeUnit.SECONDS);
+            System.out.println("存放缓存数据");
+            return list;
+        }
     }
 
-    @Cacheable(value = "obj",key = "#obj.id")
     @Override
     public Obj getObjById(Obj obj) {
         return obj;
@@ -53,13 +54,11 @@ public class ObjCacheServiceImpl implements ObjCacheService {
 
     }
 
-    @Cacheable(value = "string",key = "#string")
     @Override
     public String setString(String string) {
         return string;
     }
 
-    @Cacheable(value = "string",key = "#string")
     @Override
     public String getString(String string) {
         return string;
