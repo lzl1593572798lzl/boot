@@ -11,7 +11,11 @@ public enum  CacheKey {
     /**
      * 缓存的有效期 1*hour -> 1小时
      */
-    KV_TEST(1,TimeUnit.HOURS),
+    STRING_TEST(1,TimeUnit.HOURS),
+    HASH_TEST(1,TimeUnit.DAYS),
+    SET_TEST(1,TimeUnit.MINUTES),
+    ZSET_TEST(1,TimeUnit.DAYS),
+    LIST_TEST(1,TimeUnit.DAYS),
 
     ;
 

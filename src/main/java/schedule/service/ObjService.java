@@ -7,12 +7,8 @@ import schedule.domain.Obj;
  */
 public interface ObjService {
 
-    Obj getById(Long id);
+    Obj get(Long id);
 
     void removeById(Long id);
-
-    String setString(String string);
-
-    String getString(String string);
 
 }

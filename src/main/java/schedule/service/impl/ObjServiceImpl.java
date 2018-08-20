@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import schedule.domain.Obj;
 import schedule.service.ObjService;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * create by lzl ON 2018/08/12
  */
@@ -15,8 +18,17 @@ public class ObjServiceImpl implements ObjService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjServiceImpl.class);
 
     @Override
-    public Obj getById(Long id) {
-        return null;
+    public Obj get(Long id) {
+        Obj obj = new Obj();
+        obj.setTime(LocalDateTime.now());
+        obj.setFlag(true);
+        obj.setDate(new Date());
+        obj.setId(id);
+        obj.setMyAddress("hang zhou");
+        obj.setAge(23);
+        obj.setScore(23D);
+        obj.setSalary(2434L);
+        return obj;
     }
 
     @Override
@@ -24,13 +36,4 @@ public class ObjServiceImpl implements ObjService {
 
     }
 
-    @Override
-    public String setString(String string) {
-        return string;
-    }
-
-    @Override
-    public String getString(String string) {
-        return string;
-    }
 }

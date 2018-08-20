@@ -52,7 +52,7 @@ public class JsonUtil {
      * @return
      * @throws JsonProcessingException
      */
-    public static String writeAsString(@NotNull Object object){
+    public static String toJson(@NotNull Object object){
         String value = "";
         try {
             value =  OBJECT_MAPPER.writeValueAsString(object);
@@ -71,7 +71,7 @@ public class JsonUtil {
      * @return
      * @throws IOException
      */
-    public static <T> T getObjByJsonString(String json,Class<T> type){
+    public static <T> T getObjByJsonString(@NotNull String json,@NotNull Class<T> type){
         T t = null;
         try {
             t  = OBJECT_MAPPER.readValue(json,type);
@@ -79,6 +79,17 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return t;
+    }
+
+    /**
+     * 从 obj -> cla
+     * @param object
+     * @param cla
+     * @param <T>
+     * @return
+     */
+    public static <T> T convertValue(@NotNull Object object,@NotNull Class<T> cla){
+        return  OBJECT_MAPPER.convertValue(object,cla);
     }
 
 }

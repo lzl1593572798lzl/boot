@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -16,29 +17,30 @@ public abstract class BaseCache {
     @Autowired
     protected RedisTemplate redisTemplate;
 
-    protected final  <T> Optional<T>  execute(CacheKey  cacheKey, String suffix, CacheCallback<T> dbToCache, CacheCallback<T> fromCache){
+    protected final  <T> Optional<T>  execute(@NotNull CacheKey  cacheKey,@NotNull String suffix,
+                                              @NotNull CacheCallback<T> dbToCache,@NotNull CacheCallback<T> fromCache){
         if(null == cacheKey || null == dbToCache || null == fromCache){
             return Optional.empty();
         }
         String lockKey = Strings.isNullOrEmpty(suffix) ? cacheKey.lockKey() : cacheKey.lockKey(suffix);
-        T t = null;
 //        判断此前lock是否存在 存在直接调用缓存 不存在 调用db
         Boolean lockFlag = redisTemplate.opsForValue().setIfAbsent(lockKey,"");
         if(lockFlag){
 //            表明之前不存在lockKey
             redisTemplate.expire(lockKey,60, TimeUnit.SECONDS);
-           t =  dbToCache.getData();
+           T t =  dbToCache.getData();
             setTTL(cacheKey,suffix);
+            return Optional.ofNullable(t);
         }else {
 //            之前存在lockKey
             if(!redisTemplate.hasKey(cacheKey.key(suffix))){
-                t = null;
+                return Optional.ofNullable(null);
             }else {
-                t = fromCache.getData();
-                setTTL(cacheKey,suffix);
+               T t = fromCache.getData();
+               setTTL(cacheKey,suffix);
+               return Optional.ofNullable(t);
             }
         }
-        return Optional.ofNullable(t);
     }
 
     protected final  <T> Optional<T> execute(CacheKey  cacheKey,CacheCallback<T> dbToCache,CacheCallback<T> fromCache){
@@ -51,19 +53,13 @@ public abstract class BaseCache {
      * @param cacheKey
      * @param suffix
      */
-    private void setTTL(CacheKey cacheKey,String suffix){
+    private void setTTL(@NotNull CacheKey cacheKey,@NotNull String suffix){
         if(!Strings.isNullOrEmpty(suffix)){
-            String lockKey = cacheKey.lockKey(suffix);
-            String key = cacheKey.key(suffix);
-            long lockKeyTTL =  redisTemplate.getExpire(lockKey);
-            long keyTTL =  redisTemplate.getExpire(key);
-            redisTemplate.expire(lockKey,lockKeyTTL,TimeUnit.SECONDS);
-            redisTemplate.expire(key,keyTTL,TimeUnit.SECONDS);
+            redisTemplate.expire(cacheKey.lockKey(suffix),cacheKey.getNumber() * 2,cacheKey.getTimeUnit());
+            redisTemplate.expire(cacheKey.key(suffix),cacheKey.getNumber() * 2,cacheKey.getTimeUnit());
         }else {
-            long lockKeyTTL =  redisTemplate.getExpire(cacheKey.lockKey());
-            redisTemplate.expire(cacheKey.lockKey(),lockKeyTTL,TimeUnit.SECONDS);
+            redisTemplate.expire(cacheKey.lockKey(),cacheKey.getNumber() * 2,cacheKey.getTimeUnit());
         }
-
     }
 
     protected interface  CacheCallback<T>{

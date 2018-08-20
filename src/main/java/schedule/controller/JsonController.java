@@ -29,7 +29,7 @@ public class JsonController extends BaseController {
         obj.setName("大头鬼");
         obj.setDate(new Date());
         obj.setTime(LocalDateTime.now());
-        LOGGER.info("Obj: {}", JsonUtil.writeAsString(obj));
+        LOGGER.info("Obj: {}", JsonUtil.toJson(obj));
         return renderOk(obj);
     }
 
