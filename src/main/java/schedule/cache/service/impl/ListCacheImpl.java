@@ -25,27 +25,27 @@ public class ListCacheImpl extends BaseCache implements ListCache {
     public List<String> list(Integer type) {
         CacheCallback<List<String>> dbToCache = ()->{
             List<String> list = listService.list(type);
-            saveList(CacheKey.LIST_TEST,list);
+            saveList(CacheKey.LIST_TEST,list,type);
             return list;
         };
         CacheCallback<List<String>> fromCache = ()->{
           List<String> list = redisTemplate.opsForList().range(CacheKey.LIST_TEST.key(type.toString()),0L,-1L);
           return list;
         };
-        Optional<List<String>> optional = execute(CacheKey.LIST_TEST,dbToCache,fromCache);
+        Optional<List<String>> optional = execute(CacheKey.LIST_TEST,type.toString(),dbToCache,fromCache);
         return optional.orElse(Collections.EMPTY_LIST);
     }
 
     @Override
     public void saveList(@NotNull List<String> stringList,@NotNull Integer type) {
-        if(!redisTemplate.hasKey(CacheKey.LIST_TEST.key(type.toString()))){
+        if(!redisTemplate.hasKey(CacheKey.LIST_TEST.lockKey(type.toString()))){
             list(type);
         }else {
-            saveList(CacheKey.LIST_TEST,stringList);
+            saveList(CacheKey.LIST_TEST,stringList,type);
         }
     }
 
-    private void  saveList(@NotNull CacheKey cacheKey,@NotNull List<String> list){
-        redisTemplate.opsForList().leftPushAll(cacheKey.key(),list);
+    private void  saveList(@NotNull CacheKey cacheKey,@NotNull List<String> list,@NotNull Integer type){
+        redisTemplate.opsForList().leftPushAll(cacheKey.key(type.toString()),list);
     }
 }

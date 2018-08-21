@@ -1,8 +1,11 @@
 package schedule.controller;
 
+import com.google.common.collect.ImmutableMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import schedule.http.ResponseData;
+
+import java.util.Map;
 
 /**
  * create by lzl ON 2018/07/31
@@ -30,6 +33,29 @@ public class BaseController {
         ResponseData responseData = new ResponseData(status,data);
         ResponseEntity<ResponseData> responseEntity = new ResponseEntity<>(responseData,HttpStatus.OK);
         return responseEntity;
+    }
+
+    protected Map<String,Object> mapOf(String keyOne,Object valueOne){
+        return ImmutableMap.of(keyOne,valueOne);
+    }
+
+    protected Map<String,Object> mapOf(String keyOne,Object valueOne,String keyTwo,Object valueTwo){
+        return ImmutableMap.of(keyOne,valueOne,keyTwo,valueTwo);
+    }
+
+    protected Map<String,Object> mapOf(String keyOne,Object valueOne,String keyTwo,Object valueTwo,String keyThree,Object valueThree){
+        return ImmutableMap.of(keyOne,valueOne,keyTwo,valueTwo,keyThree,valueThree);
+    }
+
+    protected Map<String,Object> mapOf(String keyOne,Object valueOne,String keyTwo,Object valueTwo,String keyThree,
+                                       Object valueThree,String keyFour,Object valueFour){
+        return ImmutableMap.of(keyOne,valueOne,keyTwo,valueTwo,keyThree,valueThree,keyFour,valueFour);
+    }
+
+
+    protected Map<String,Object> mapOf(String keyOne,Object valueOne,String keyTwo,Object valueTwo,String keyThree,
+                                       Object valueThree,String keyFour,Object valueFour,String keyFive,Object valueFive ){
+        return ImmutableMap.of(keyOne,valueOne,keyTwo,valueTwo,keyThree,valueThree,keyFour,valueFour,keyFive,valueFive);
     }
 
 

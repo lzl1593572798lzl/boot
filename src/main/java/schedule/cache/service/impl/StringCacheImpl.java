@@ -27,7 +27,7 @@ public class StringCacheImpl extends BaseCache implements StringCache {
             return str;
         };
         CacheCallback<String> fromCache = () ->{
-            String str = (String) redisTemplate.opsForValue().get(name);
+            String str = (String) redisTemplate.opsForValue().get(CacheKey.STRING_TEST.key(name));
             return str;
         };
         Optional<String> optional = execute(CacheKey.STRING_TEST,name,dbToCache,fromCache);

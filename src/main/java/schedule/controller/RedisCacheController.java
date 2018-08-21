@@ -36,7 +36,7 @@ public class RedisCacheController extends BaseController {
      */
     @GetMapping("/get")
     public ResponseEntity<ResponseData> getObj (@RequestParam("id")Long id){
-        return renderOk(objCache.getById(id));
+        return renderOk(mapOf("obj",objCache.getById(id)));
     }
 
     /**
@@ -47,7 +47,7 @@ public class RedisCacheController extends BaseController {
     @GetMapping("/list")
     public ResponseEntity<ResponseData> list(@RequestParam("type")Integer type){
         List<String> stringList = listCache.list(type);
-        return renderOk(stringList);
+        return renderOk(mapOf("list",stringList));
     }
 
     /**
@@ -58,7 +58,7 @@ public class RedisCacheController extends BaseController {
     @GetMapping("/str")
     public ResponseEntity<ResponseData> str(@RequestParam("str")String name){
         String string = stringCache.get(name);
-        return renderOk(string);
+        return renderOk(mapOf(name,string));
     }
 
 }
