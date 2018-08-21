@@ -3,7 +3,7 @@ package com.lzl.cache.service.impl;
 import com.lzl.cache.BaseCache;
 import com.lzl.cache.CacheKey;
 import com.lzl.domain.Obj;
-import com.lzl.util.JsonUtil;
+import com.lzl.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lzl.cache.service.ObjCache;
@@ -31,7 +31,7 @@ public class ObjCacheImpl extends BaseCache implements ObjCache {
         };
         CacheCallback<Obj> fromCache = ()->{
             Map<String,Object> map = redisTemplate.opsForHash().entries(CacheKey.HASH_TEST.key(id.toString()));
-            Obj obj = JsonUtil.convertValue(map,Obj.class);
+            Obj obj = JsonUtils.convertValue(map,Obj.class);
             return obj;
         };
         Optional<Obj> optional = execute(CacheKey.HASH_TEST,id.toString(),dbToCache,fromCache);
@@ -53,8 +53,8 @@ public class ObjCacheImpl extends BaseCache implements ObjCache {
     }
 
     public Map<String,Object> objToMap(@NotNull Obj obj){
-        String objJson = JsonUtil.toJson(obj);
-        Map<String,Object> stringObjectMap = JsonUtil.getObjByJsonString(objJson,Map.class);
+        String objJson = JsonUtils.toJson(obj);
+        Map<String,Object> stringObjectMap = JsonUtils.getObjByJsonString(objJson,Map.class);
         return stringObjectMap;
     }
 

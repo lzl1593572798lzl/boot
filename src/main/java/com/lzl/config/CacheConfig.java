@@ -1,6 +1,6 @@
 package com.lzl.config;
 
-import com.lzl.util.JsonUtil;
+import com.lzl.util.JsonUtils;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,7 @@ public class CacheConfig  extends CachingConfigurerSupport{
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
         Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
-        serializer.setObjectMapper(JsonUtil.getObjectMapper());
+        serializer.setObjectMapper(JsonUtils.getObjectMapper());
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 //        启用默认的序列化设置  这样key、value Hash 对应的序列化 使用的都是同一个序列化类

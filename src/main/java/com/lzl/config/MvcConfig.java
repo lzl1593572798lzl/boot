@@ -17,7 +17,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import com.lzl.config.filter.DemoFilter;
 import com.lzl.config.intercepter.DemoInterceptor;
-import com.lzl.util.JsonUtil;
+import com.lzl.util.JsonUtils;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 //        使用统一的json 序列化方案
-        converter.setObjectMapper(JsonUtil.getObjectMapper());
+        converter.setObjectMapper(JsonUtils.getObjectMapper());
         converters.add(0,converter);
     }
 
