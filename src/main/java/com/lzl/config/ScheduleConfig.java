@@ -7,6 +7,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.stereotype.Component;
 
 /**
+ * 定时任务配置类
  * create by lzl ON 2018/07/31
  * @author lzl
  */
