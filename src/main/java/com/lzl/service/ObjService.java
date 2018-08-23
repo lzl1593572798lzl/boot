@@ -11,4 +11,6 @@ public interface ObjService {
 
     void removeById(Long id);
 
+    Integer insert(Obj obj);
+
 }

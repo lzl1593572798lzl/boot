@@ -1,5 +1,8 @@
-package com.lzl.controller;
+package com.lzl.controller.admin;
 
+import com.lzl.constants.ResponseCode;
+import com.lzl.controller.BaseController;
+import com.lzl.http.ResponseData;
 import com.lzl.myjob.MyThread;
 import com.lzl.trigger.MyTrigger;
 import org.slf4j.Logger;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.lzl.http.ResponseData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +25,7 @@ import java.util.concurrent.ScheduledFuture;
  */
 @RestController
 @RequestMapping("/cron")
-public class ScheduleController extends BaseController{
+public class ScheduleController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
 
@@ -41,7 +43,7 @@ public class ScheduleController extends BaseController{
             MAP.put(flag,future);
             LOGGER.info(" 启动新的定时任务后flag:{} map: {}",flag,MAP);
         }else {
-            return renderStatus(500);
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
         }
         return renderOk();
     }
@@ -50,7 +52,7 @@ public class ScheduleController extends BaseController{
     public ResponseEntity<ResponseData> stop(@RequestParam("flag")String flag){
         ScheduledFuture<?> future = MAP.get(flag);
         if(future == null){
-            return renderStatus(500);
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
         }else {
             LOGGER.info(" 停止定时任务前 flag:{}  map: {}",flag,MAP);
             future.cancel(true);
@@ -65,7 +67,7 @@ public class ScheduleController extends BaseController{
                                                 @RequestParam("flag")String flag){
         ScheduledFuture<?> future = MAP.get(flag);
         if(future == null){
-            return renderStatus(500);
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
         }else {
             LOGGER.info(" 重启的定时任务前flag:{} map: {}",flag,MAP);
             future.cancel(true);

@@ -1,5 +1,6 @@
 package com.lzl.controller;
 
+import com.lzl.http.ResponseData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestTemplate;
-import com.lzl.http.ResponseData;
 
 /**
  * 测试异步调用
@@ -27,7 +27,7 @@ public class AsynController extends BaseController{
         }catch (Exception e){
             e.printStackTrace();
         }
-        return renderOk("同步等待5秒");
+        return renderOk();
     }
 
     @GetMapping("/sync")
@@ -35,7 +35,7 @@ public class AsynController extends BaseController{
         RestTemplate restTemplate = new RestTemplate();
         String obj =  restTemplate.getForObject(url,String.class);
         System.out.println(obj);
-        return renderOk("同步等待5秒: "+obj);
+        return renderOk();
     }
 
     @GetMapping("/async")
@@ -53,7 +53,7 @@ public class AsynController extends BaseController{
                 System.out.println("异步调用结束: "+stringResponseEntity.toString());
             }
         });
-        return renderOk("异步调用结束");
+        return renderOk();
     }
 
 

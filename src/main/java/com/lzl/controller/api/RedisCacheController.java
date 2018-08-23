@@ -1,15 +1,16 @@
-package com.lzl.controller;
+package com.lzl.controller.api;
 
 import com.lzl.cache.service.ListCache;
+import com.lzl.cache.service.ObjCache;
 import com.lzl.cache.service.StringCache;
+import com.lzl.controller.BaseController;
+import com.lzl.http.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.lzl.cache.service.ObjCache;
-import com.lzl.http.ResponseData;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * create by lzl ON 2018/08/12
  */
 @RestController
-@RequestMapping("/cache")
+@RequestMapping("/api/cache")
 public class RedisCacheController extends BaseController {
 
     @Autowired

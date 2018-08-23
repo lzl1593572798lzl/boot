@@ -2,7 +2,6 @@ package com.lzl.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @JsonIgnore 忽略属性的格式化
@@ -11,6 +10,7 @@ import java.util.Date;
  * create by lzl ON 2018/08/01
  */
 public class Obj implements Serializable{
+
 
     private Long id;
 
@@ -44,20 +44,30 @@ public class Obj implements Serializable{
      */
     private Long salary;
 
-    /**
-     *
-     */
-    private Date date;
-
     private String myAddress;
+
+    /**
+     * 删除的标志： 0： false,1:true
+     */
+    private Boolean deleted;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createdAt;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedAt;
+
 
     public Obj() {
     }
 
-    public Obj(Boolean flag, Integer age, Date date, String myAddress) {
+    public Obj(Boolean flag, Integer age, String myAddress) {
         this.flag = flag;
         this.age = age;
-        this.date = date;
         this.myAddress = myAddress;
     }
 
@@ -109,14 +119,6 @@ public class Obj implements Serializable{
         this.salary = salary;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getMyAddress() {
         return myAddress;
     }
@@ -133,8 +135,27 @@ public class Obj implements Serializable{
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return this.name+" : "+this.age+" : "+this.date+" : "+this.flag+" : "+this.salary+" : "+this.score+" : "+this.time;
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

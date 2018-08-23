@@ -1,6 +1,7 @@
 package com.lzl.controller;
 
 import com.google.common.collect.ImmutableMap;
+import com.lzl.constants.ResponseCode;
 import com.lzl.http.ResponseData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +14,20 @@ import java.util.Map;
  */
 public class BaseController {
 
-    protected ResponseEntity<ResponseData> renderStatus(Integer status){
-        return render(status,"");
-    }
-
     protected ResponseEntity<ResponseData> renderOk(){
-        return renderOk("");
+        return renderOk(ResponseCode.OK);
     }
 
-    protected ResponseEntity<ResponseData> renderOk(Object data){
-        return render(200,data);
+    protected ResponseEntity<ResponseData> renderOk(Map<String,Object> stringObjectMap){
+        return render(200,stringObjectMap);
     }
 
-    protected ResponseEntity<ResponseData> render(Integer status,Object data){
+    private ResponseEntity<ResponseData> render(Integer status,Object data){
         return assemble(status,data);
+    }
+
+    protected ResponseEntity<ResponseData> renderOk(ResponseCode responseCode){
+        return assemble(responseCode.getCode(),responseCode.getMessage());
     }
 
     private ResponseEntity<ResponseData> assemble(Integer status,Object data){
