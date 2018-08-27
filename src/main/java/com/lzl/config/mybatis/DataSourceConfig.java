@@ -1,7 +1,6 @@
-package com.lzl.config;
+package com.lzl.config.mybatis;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 /**
  * @Author: lzl
@@ -130,22 +128,24 @@ public class DataSourceConfig {
         return manager;
     }
 
-    /**
-     * 设置分页函数
-     * @return
-     */
-    @Bean
-    public PageHelper pageHelper(){
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("offsetAsPageNum","true");
-        properties.setProperty("rowBoundsWithCount","true");
-        properties.setProperty("reasonable","true");
-        properties.setProperty("dialect","mysql");
-        pageHelper.setProperties(properties);
-        return pageHelper;
-    }
-
-
+//    /**
+//     * 设置分页的拦截器
+//     * @return
+//     */
+//    @Bean
+//    public PageInterceptor pageInterceptor(){
+//        PageInterceptor pageInterceptor = new PageInterceptor();
+//        Properties properties = new Properties();
+////        分页合理化参数，默认值为false。当该参数设置为 true 时，
+////        pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。
+//        properties.setProperty("reasonable","true");
+////        支持通过 Mapper 接口参数来传递分页参数，默认值false，
+////        分页插件会从查询方法的参数值中，自动根据上面 params 配置的字段中取值，查找到合适的值时就会自动分页。
+////        properties.setProperty("supportMethodsArguments","true");
+////        mapper 中配置的分页查询参数 key -> value
+////        properties.setProperty("params","pageNum=pageNumKey;pageSize=pageSizeKey;");
+//        pageInterceptor.setProperties(properties);
+//        return pageInterceptor;
+//    }
 
 }

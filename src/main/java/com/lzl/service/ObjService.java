@@ -1,5 +1,6 @@
 package com.lzl.service;
 
+import com.lzl.config.mybatis.Pg;
 import com.lzl.domain.Obj;
 
 /**
@@ -12,5 +13,7 @@ public interface ObjService {
     void removeById(Long id);
 
     Integer insert(Obj obj);
+
+    Pg<Obj> listByPage(Integer pageNum, Integer pageSize,String name);
 
 }

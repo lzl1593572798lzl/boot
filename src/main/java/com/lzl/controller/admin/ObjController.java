@@ -1,5 +1,6 @@
 package com.lzl.controller.admin;
 
+import com.google.common.base.Strings;
 import com.lzl.cache.service.ObjCache;
 import com.lzl.constants.ResponseCode;
 import com.lzl.controller.BaseController;
@@ -66,6 +67,29 @@ public class ObjController extends BaseController {
             objService.removeById(id);
         }
         return renderOk();
+    }
+
+
+    /**
+     * 分页查询参数
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/list_page")
+    public ResponseEntity<ResponseData> listByPage(@RequestParam("current_size")Integer pageNum,
+                                                   @RequestParam("page_size")Integer pageSize,
+                                                   @RequestParam("name")String name){
+        if(null != pageNum && pageNum.intValue() < 0){
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
+        }
+        if(null != pageSize && pageSize.intValue() < 0){
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
+        }
+        if(Strings.isNullOrEmpty(name)){
+            return renderOk(ResponseCode.ILLEGAL_PARAMETER);
+        }
+        return renderOk(mapOf("list",objService.listByPage(pageNum,pageSize,name)));
     }
 
 }

@@ -158,4 +158,5 @@ public class Obj implements Serializable{
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }
