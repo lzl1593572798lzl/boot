@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author lzl
  */
 @Order(1)
-@WebFilter(filterName = "demoFilter",urlPatterns = "/json/**")
+@WebFilter(filterName = "demoFilter")
 public class DemoFilter implements Filter{
 
     @Override
@@ -26,6 +26,6 @@ public class DemoFilter implements Filter{
 
     @Override
     public void destroy() {
-
+        System.out.println("DemoFilter 销毁");
     }
 }
