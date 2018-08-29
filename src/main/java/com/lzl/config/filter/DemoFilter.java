@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -11,7 +12,7 @@ import java.io.IOException;
  * @author lzl
  */
 @Order(1)
-@WebFilter(filterName = "demoFilter")
+@WebFilter(filterName = "demoFilter",urlPatterns = "/json/*")
 public class DemoFilter implements Filter{
 
     @Override
@@ -22,6 +23,7 @@ public class DemoFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         filterChain.doFilter(servletRequest,servletResponse);
+        System.out.println("RequestURI -> "+((HttpServletRequest)servletRequest).getRequestURI());
     }
 
     @Override

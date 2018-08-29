@@ -1,8 +1,9 @@
 package com.lzl.config;
 
+import com.lzl.config.intercepter.DemoInterceptor;
+import com.lzl.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -15,9 +16,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import com.lzl.config.filter.DemoFilter;
-import com.lzl.config.intercepter.DemoInterceptor;
-import com.lzl.util.JsonUtils;
 
 import java.util.List;
 
@@ -51,14 +49,17 @@ public class MvcConfig implements WebMvcConfigurer {
 
     /**
      * 注册filter
+     * 在 ScheduleApplication 上 使用@ServletComponentScan
+     * 注解 就不用配置此注册类了
      * @return
      */
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean(){
-        FilterRegistrationBean<DemoFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
-        filterFilterRegistrationBean.setFilter(new DemoFilter());
-        return filterFilterRegistrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean(){
+//        FilterRegistrationBean<DemoFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
+//        filterFilterRegistrationBean.setFilter(new DemoFilter());
+//        System.out.println("---------------------------------------------");
+//        return filterFilterRegistrationBean;
+//    }
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configure) {
