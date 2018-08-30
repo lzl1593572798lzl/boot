@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author lzl
  */
 @Order(1)
-@WebFilter(filterName = "demoFilter",urlPatterns = "/json/*")
+@WebFilter(filterName = "demoFilter",urlPatterns = "/admin/*")
 public class DemoFilter implements Filter{
 
     @Override
