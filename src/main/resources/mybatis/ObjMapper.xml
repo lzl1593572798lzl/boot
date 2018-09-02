@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzl.mapper.ObjMapper">
+
+    <select id="listByName" parameterType="String" resultType="Obj">
+        select * from obj
+        where name like concat('%',#{name},'%')
+    </select>
+
+    <!-- 实现插入数据-->
+    <insert id="insertToDb" parameterType="obj" useGeneratedKeys="true" keyProperty="obj.id" keyColumn="id">
+        insert into obj(flag,name,time,age,score,salary,my_address,deleted,created_at,updated_at)
+        values(#{obj.flag},#{obj.name},#{obj.time},#{obj.age},#{obj.score},#{obj.salary},
+        #{obj.myAddress},#{obj.deleted},#{obj.createdAt},#{obj.updatedAt})
+    </insert>
+
+</mapper>

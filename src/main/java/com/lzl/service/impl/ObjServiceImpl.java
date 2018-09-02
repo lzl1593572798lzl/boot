@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * create by lzl ON 2018/08/12
@@ -49,5 +50,16 @@ public class ObjServiceImpl implements ObjService {
             objMapper.list(name);
         });
         return Pg.ofPageInfo(pageInfo);
+    }
+
+    @Override
+    public List<Obj> listByName(@NotNull String name) {
+        return objMapper.listByName(name);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer insertToDb(@NotNull Obj obj) {
+        return objMapper.insertToDb(obj);
     }
 }

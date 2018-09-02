@@ -1,13 +1,15 @@
 package com.lzl.mapper;
 
 import com.lzl.domain.User;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @Author: lzl
  * @Date: 2018/08/30 21:24
  */
-@Mapper
 public interface UserMapper {
 
     @Insert("insert into user(name,password,obj_id) values(#{user.name},#{user.password},#{user.obj.id})")

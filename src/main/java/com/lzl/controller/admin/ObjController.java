@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author: lzl
@@ -46,7 +47,8 @@ public class ObjController extends BaseController {
         obj.setDeleted(false);
         obj.setCreatedAt(obj.getTime());
         obj.setUpdatedAt(obj.getCreatedAt());
-        objService.insert(obj);
+        objService.insertToDb(obj);
+//        objService.insert(obj);
         System.out.println(JsonUtils.toJson(obj));
         objCache.saveCache(obj);
         return renderOk();
@@ -90,6 +92,17 @@ public class ObjController extends BaseController {
             return renderOk(ResponseCode.ILLEGAL_PARAMETER);
         }
         return renderOk(mapOf("list",objService.listByPage(pageNum,pageSize,name)));
+    }
+
+    /**
+     * 根据name获取list
+     * @param name
+     * @return
+     */
+    @GetMapping("/list_name")
+    public ResponseEntity<ResponseData> listByName(@RequestParam("name")String name){
+        List<Obj> objList = objService.listByName(name);
+        return renderOk(mapOf("list",objList));
     }
 
 }

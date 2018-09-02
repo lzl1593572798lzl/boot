@@ -1,6 +1,7 @@
 package com.lzl.config.mybatis;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
  * @Author: lzl
  * @Date: 2018/08/23 12:47
  */
+@MapperScan("com.lzl.mapper")
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig {

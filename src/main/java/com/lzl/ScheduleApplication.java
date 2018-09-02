@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @author lzl
  */
 @SpringBootApplication
+@ServletComponentScan
 @EnableScheduling
 @EnableWebMvc
 @EnableCaching
-@ServletComponentScan
 public class ScheduleApplication {
 
     public static void main(String[] args) {
