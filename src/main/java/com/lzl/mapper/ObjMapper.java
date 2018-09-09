@@ -4,6 +4,7 @@ import com.lzl.domain.Obj;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: lzl
@@ -31,7 +32,7 @@ public interface ObjMapper {
     @Select("select * from obj where deleted = 0 and name = #{name}")
     List<Obj> list(@Param("name")String name);
 
-    List<Obj> listByName(@Param("name")String name);
+    List<Obj> listByLikeName(@Param("name")String name);
 
     /**
      *
@@ -39,5 +40,39 @@ public interface ObjMapper {
      * @return
      */
     Integer insertToDb(@Param("obj")Obj obj);
+
+    List<Obj> selectByName(@Param("name")String name,@Param("age")Integer age);
+
+    Integer updateByObj(@Param("obj")Obj obj);
+
+    /**
+     * 根据id做 in 查询
+     * @param idList
+     * @return
+     */
+    List<Obj> selectByList(@Param("id_list")List<Integer> idList);
+
+    /**
+     * 根据map查询
+     * @param objMap
+     * @return
+     */
+    List<Obj> selectByMap(@Param("obj_map")Map<Long,Obj> objMap);
+
+    /**
+     * 批量插入
+     * @param list
+     * @return
+     */
+    Integer insertByList(@Param("list")List<Obj> list);
+
+    Integer updateByListObj(@Param("list")List<Obj> list);
+
+    /**
+     * 测试使用bind语法
+     * @param name
+     * @return
+     */
+    List<Obj> selectUseBind(@Param("name")String name);
 
 }

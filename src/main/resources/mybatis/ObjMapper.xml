@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzl.mapper.ObjMapper">
 
-    <select id="listByName" parameterType="String" resultType="Obj">
+    <select id="listByLikeName" parameterType="String" resultType="obj">
         select * from obj
         where name like concat('%',#{name},'%')
     </select>
@@ -13,5 +13,85 @@
         values(#{obj.flag},#{obj.name},#{obj.time},#{obj.age},#{obj.score},#{obj.salary},
         #{obj.myAddress},#{obj.deleted},#{obj.createdAt},#{obj.updatedAt})
     </insert>
+
+    <select id="selectByName" resultType="obj">
+        select * from obj
+        <where>
+            <choose>
+                <when test="name != null and name != ''">
+                    and name = #{name}
+                </when>
+                <otherwise>
+                    <if test="age != null">
+                       and  age = #{age}
+                    </if>
+                </otherwise>
+            </choose>
+        </where>
+        <!--<where>-->
+            <!--<if test="name != null and name != ''" >-->
+                <!--and name = #{name}-->
+            <!--</if>-->
+            <!--<if test="age != null ">-->
+                <!--and age like concat('%',#{age},'%')-->
+            <!--</if>-->
+        <!--</where>-->
+        limit 10
+    </select>
+
+    <update id="updateByObj" parameterType="obj">
+        update obj
+        <set>
+            <if test="obj.name != null and obj.name != ''">
+                name = #{obj.name},
+            </if>
+            <if test="obj.age != null">
+                age = #{obj.age},
+            </if>
+            id = #{obj.id}
+        </set>
+        where id = #{obj.id}
+    </update>
+
+    <select id="selectByList" resultType="obj">
+        select * from obj
+        <where>
+            id in
+            <foreach collection="id_list" open="(" close=")"
+                     separator=","  item="id_">
+                #{id_}
+            </foreach>
+        </where>
+        limit 10
+    </select>
+
+    <select id="selectByMap" resultType="obj">
+        select * from obj
+        <where>
+            id in
+            <foreach collection="obj_map" open="(" close=")"
+                     separator="," index="key" item="value">
+                #{value.id}
+            </foreach>
+        </where>
+        limit 10
+    </select>
+
+    <insert id="insertByList" useGeneratedKeys="true" keyColumn="obj.id" keyProperty="id">
+        insert into obj(flag,name,time,age,score,salary,my_address,deleted,created_at,updated_at)
+        values
+        <foreach collection="list" item="obj" separator=",">
+           (#{obj.flag},#{obj.name},#{obj.time},#{obj.age},#{obj.score},#{obj.salary},
+            #{obj.myAddress},#{obj.deleted},#{obj.createdAt},#{obj.updatedAt})
+        </foreach>
+    </insert>
+    
+    <select id="selectUseBind" resultType="obj">
+        select * from obj
+        <where>
+            <bind name="bing_name" value="'%'+name+'%'"/>
+             name like #{bing_name}
+        </where>
+    </select>
 
 </mapper>

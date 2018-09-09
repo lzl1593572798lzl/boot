@@ -54,7 +54,7 @@ public class ObjServiceImpl implements ObjService {
 
     @Override
     public List<Obj> listByName(@NotNull String name) {
-        return objMapper.listByName(name);
+        return objMapper.listByLikeName(name);
     }
 
     @Override
