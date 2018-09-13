@@ -103,4 +103,15 @@ public class ObjServiceTest {
         return objList;
     }
 
+    @Test
+    public void testCache(){
+        Obj obj = objMapper.getById(2L);
+        System.out.println(obj);
+        obj.setName("sdfsdf");
+        Obj objNew = objMapper.getById(2L);
+        System.out.println(obj == objNew);
+        System.out.println(JsonUtils.toJson(obj));
+        System.out.println(JsonUtils.toJson(objNew));
+    }
+
 }
