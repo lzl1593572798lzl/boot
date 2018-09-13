@@ -10,9 +10,14 @@ import java.util.Map;
  * @Author: lzl
  * @Date: 2018/08/23 21:59
  */
+/**
+ *  引用开启二级缓存配置
+ */
+//@CacheNamespaceRef(ObjMapper.class)
 public interface ObjMapper {
 
-    @Select("select * from obj where id =#{id}")
+//    @Select("select * from obj where id =#{id}")
+//    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     Obj getById(@Param("id")Long id);
 
     /**
