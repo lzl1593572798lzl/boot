@@ -28,6 +28,8 @@ public class ObjServiceTest {
     public void testSelectByName(){
         List<Obj> objList =  objMapper.selectByName("",23);
         printList(objList);
+        List<Obj> objListNew = objMapper.selectByName("",23);
+        printList(objListNew);
     }
 
     @Test
@@ -67,12 +69,6 @@ public class ObjServiceTest {
     }
 
     @Test
-    public void updateByList(){
-        List<Obj> objList = objMapper.listByLikeName("obj:");
-        objMapper.updateByListObj(objList);
-    }
-
-    @Test
     public void testBind(){
         List<Obj> objList = objMapper.selectUseBind("obj:");
         printList(objList);
@@ -106,12 +102,19 @@ public class ObjServiceTest {
     @Test
     public void testCache(){
         Obj obj = objMapper.getById(2L);
-        System.out.println(obj);
+        System.out.println(obj.getName());
         obj.setName("sdfsdf");
+        System.out.println(obj.getName());
         Obj objNew = objMapper.getById(2L);
-        System.out.println(obj == objNew);
-        System.out.println(JsonUtils.toJson(obj));
-        System.out.println(JsonUtils.toJson(objNew));
+        System.out.println(objNew.getName());
     }
+
+
+    @Test
+    public void selectById(){
+        Obj obj = objMapper.getById(2L);
+//        System.out.println("obj: "+JsonUtils.toJson(obj));
+    }
+
 
 }

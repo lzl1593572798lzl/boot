@@ -1,6 +1,7 @@
 package com.lzl.config.mybatis;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.lzl.config.mybatis.interceptor.MybatisDemoInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

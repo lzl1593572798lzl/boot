@@ -71,13 +71,13 @@ public interface ObjMapper {
      */
     Integer insertByList(@Param("list")List<Obj> list);
 
-    Integer updateByListObj(@Param("list")List<Obj> list);
-
     /**
      * 测试使用bind语法
      * @param name
      * @return
      */
     List<Obj> selectUseBind(@Param("name")String name);
+
+
 
 }

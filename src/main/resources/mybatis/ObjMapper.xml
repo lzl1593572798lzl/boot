@@ -9,9 +9,8 @@
         select * from obj where id =#{id}
     </select>
     
-    <select id="listByLikeName" parameterType="String" resultType="obj">
-        select * from obj
-        where name like concat('%',#{name},'%')
+    <select id="listByLikeName"  resultType="obj">
+        select * from obj where name like concat('%',#{name},'%')
     </select>
 
     <!-- 实现插入数据-->
